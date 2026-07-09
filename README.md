@@ -10,10 +10,14 @@ This repository starts with human-readable Markdown contracts, JSON Schema, and 
 - [docs/vault-format.md](docs/vault-format.md): Markdown vault expectations.
 - [docs/runtime-package.md](docs/runtime-package.md): JSON/YAML runtime package expectations.
 - [docs/validation-report.md](docs/validation-report.md): shared validation report concept.
+- [docs/change-sets.md](docs/change-sets.md): portable canon-edit review workflow.
+- [docs/compendium.md](docs/compendium.md): public Compendium configuration and PathBranching reader boundary.
 - [schemas/v0.1](schemas/v0.1): JSON Schemas for the v0.1 contracts.
 - [examples/demo-vault](examples/demo-vault): synthetic Markdown vault example.
 - [examples/runtime-package.json](examples/runtime-package.json): JSON runtime package example.
 - [examples/runtime-package.yaml](examples/runtime-package.yaml): YAML runtime package example.
+- [examples/canon-change-set.json](examples/canon-change-set.json): cross-app canon change proposal.
+- [examples/demo-vault/.everend/compendium.yaml](examples/demo-vault/.everend/compendium.yaml): Compendium configuration example.
 - [examples/invalid-v0.1](examples/invalid-v0.1): deliberately invalid fixtures for validator tests.
 
 ## Design Goals

@@ -1,0 +1,7 @@
+specVersion: "0.1"
+theme:
+  accentColor: blue
+publication:
+  statuses: []
+narrative:
+  mode: full-graph

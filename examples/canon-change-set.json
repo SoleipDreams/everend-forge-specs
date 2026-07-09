@@ -1,0 +1,24 @@
+{
+  "specVersion": "0.1",
+  "id": "change:character-example-protagonist:voice-note",
+  "kind": "canon-change-set",
+  "sourceApp": "pathbranching",
+  "target": {
+    "entityId": "character:example-protagonist",
+    "path": "Characters/Example-Character.md"
+  },
+  "base": {
+    "content": "---\nid: character:example-protagonist\ntype: character\nname: Example Protagonist\nstatus: canon\n---\n\nOriginal note.\n",
+    "modifiedMs": 1710000000000,
+    "contentHash": "sha256:example-base",
+    "capturedAt": "2026-07-09T15:00:00.000Z"
+  },
+  "proposed": {
+    "content": "---\nid: character:example-protagonist\ntype: character\nname: Example Protagonist\nstatus: canon\n---\n\nRevised note.\n",
+    "diff": "-Original note.\n+Revised note."
+  },
+  "status": "proposed",
+  "revision": 1,
+  "createdAt": "2026-07-09T15:00:00.000Z",
+  "updatedAt": "2026-07-09T15:05:00.000Z"
+}

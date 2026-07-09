@@ -7,3 +7,5 @@ These files are deliberately invalid. They exist so future validators can test e
 - `invalid-taxonomy.yaml`: taxonomy property uses an unsupported property type.
 - `invalid-runtime-package.json`: runtime package uses an unsupported `specVersion`.
 - `invalid-validation-report.yaml`: validation finding is missing required `code`.
+- `invalid-canon-change-set.json`: canon change proposal is missing its target.
+- `invalid-compendium-config.yaml`: invalid color, empty publication status list, and unsupported narrative mode.

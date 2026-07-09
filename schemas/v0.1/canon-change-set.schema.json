@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://everendforge.github.io/spec/schemas/v0.1/canon-change-set.schema.json",
+  "title": "Everend Canon Change Set v0.1",
+  "type": "object",
+  "required": ["specVersion", "id", "kind", "sourceApp", "target", "base", "proposed", "status", "revision", "createdAt", "updatedAt"],
+  "properties": {
+    "specVersion": { "const": "0.1" },
+    "id": { "type": "string", "minLength": 1 },
+    "kind": { "const": "canon-change-set" },
+    "sourceApp": { "type": "string", "minLength": 1 },
+    "target": {
+      "type": "object",
+      "required": ["entityId", "path"],
+      "properties": {
+        "entityId": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "base": {
+      "type": "object",
+      "required": ["content", "capturedAt"],
+      "properties": {
+        "content": { "type": "string" },
+        "modifiedMs": { "type": "number", "minimum": 0 },
+        "contentHash": { "type": "string", "minLength": 1 },
+        "capturedAt": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "proposed": {
+      "type": "object",
+      "required": ["content"],
+      "properties": {
+        "content": { "type": "string" },
+        "diff": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "status": { "enum": ["draft", "proposed", "conflicted", "applied", "dismissed"] },
+    "revision": { "type": "integer", "minimum": 1 },
+    "createdAt": { "type": "string", "minLength": 1 },
+    "updatedAt": { "type": "string", "minLength": 1 },
+    "appliedAt": { "type": "string", "minLength": 1 },
+    "appliedBy": { "type": "string", "minLength": 1 },
+    "note": { "type": "string" }
+  },
+  "additionalProperties": false
+}

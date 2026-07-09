@@ -1,0 +1,12 @@
+{
+  "specVersion": "0.1",
+  "id": "change:missing-target",
+  "kind": "canon-change-set",
+  "sourceApp": "pathbranching",
+  "base": { "content": "Original", "capturedAt": "2026-07-09T15:00:00.000Z" },
+  "proposed": { "content": "Changed" },
+  "status": "proposed",
+  "revision": 1,
+  "createdAt": "2026-07-09T15:00:00.000Z",
+  "updatedAt": "2026-07-09T15:00:00.000Z"
+}

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://everendforge.com/spec/v0.1/compendium-config.schema.json",
+  "title": "Everend Compendium Configuration v0.1",
+  "type": "object",
+  "required": ["specVersion"],
+  "additionalProperties": false,
+  "properties": {
+    "specVersion": { "const": "0.1" },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "description": { "type": "string", "maxLength": 500 },
+        "locale": { "type": "string", "minLength": 2, "maxLength": 35 },
+        "baseUrl": { "type": "string", "pattern": "^https?://.+" },
+        "coverImage": { "$ref": "#/$defs/vaultPath" },
+        "logo": { "$ref": "#/$defs/vaultPath" }
+      }
+    },
+    "theme": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "preset": { "enum": ["midnight", "parchment", "ink"] },
+        "accentColor": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }
+      }
+    },
+    "navigation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "typeOrder": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "statuses": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "default": ["canon"],
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "narrative": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": { "enum": ["scenes-and-relations"] }
+      }
+    }
+  },
+  "$defs": {
+    "vaultPath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    }
+  }
+}

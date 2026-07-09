@@ -124,6 +124,28 @@ A branch graph is an interactive narrative graph produced by PathBranching. It m
 
 WorldNotion may store worldbuilding and narrative planning entities such as story, arc, scene, and quest. PathBranching owns executable runtime flow such as nodes, choices, conditions, consequences, and branching state.
 
+## Compendium configuration
+
+A universe may include `.everend/compendium.yaml` to configure a read-only, publishable Compendium. The configuration controls site identity, visual presentation, navigation, publication filtering, and the editorial narrative projection. It never changes canon or PathBranching authoring data.
+
+Compendium readers publish `canon` entities by default. A universe can explicitly publish additional status values. The v0.1 narrative mode is `scenes-and-relations`: readers may show story, sequence, event, text, description, and canon references, but must not expose choices, conditions, consequences, variables, graph layout, or other executable state.
+
+~~~yaml
+specVersion: "0.1"
+site:
+  title: Example Compendium
+  description: A public guide to the example universe.
+theme:
+  preset: midnight
+  accentColor: "#C89B3C"
+publication:
+  statuses: [canon]
+narrative:
+  mode: scenes-and-relations
+~~~
+
+PathBranching readers may consume the saved modular workspace under `.everend/.pathbranching/` and its legacy story files. They should treat it as a read-only source and only project the editorial fields listed above. Invalid or unsupported stories must produce a warning rather than block canon publication.
+
 ## Runtime package
 
 A runtime package is a JSON/YAML export that engine plugins can execute without requiring authoring apps.
@@ -167,6 +189,10 @@ Common findings include:
 - Missing canon references.
 - Broken graph transitions.
 - Missing runtime assets.
+
+## Canon change set
+
+A Canon Change Set is a portable, reviewable proposal to modify an existing vault entity. It lives in `.everend/changes/` and records the stable target ID/path, immutable base content, proposed content, optional diff, revision, timestamps, source app, and review state. Tools must not apply a change set automatically; direct application requires an explicit user action and a source-version conflict check.
 
 ## Later work
 

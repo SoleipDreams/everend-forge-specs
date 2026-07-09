@@ -1,0 +1,14 @@
+specVersion: "0.1"
+site:
+  title: Everend Demo Compendium
+  description: A public, synthetic example universe.
+  locale: en
+theme:
+  preset: midnight
+  accentColor: "#C89B3C"
+navigation:
+  typeOrder: [world, character, location, organization, story, scene]
+publication:
+  statuses: [canon]
+narrative:
+  mode: scenes-and-relations
