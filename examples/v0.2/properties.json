@@ -1,0 +1,64 @@
+{
+  "version": "3.0",
+  "baseProperties": {
+    "definitions": [
+      { "id": "id", "label": "ID", "type": "text", "immutable": true },
+      { "id": "type", "label": "Type", "type": "select", "options": [{ "value": "character", "label": "Character" }, { "value": "location", "label": "Location" }], "immutable": true },
+      { "id": "name", "label": "Name", "type": "text", "immutable": true },
+      { "id": "status", "label": "Status", "type": "select", "options": [{ "value": "draft", "label": "Draft" }, { "value": "canon", "label": "Canon" }] }
+    ],
+    "visibleByDefault": ["id", "type", "name", "status"]
+  },
+  "tags": { "rootNodes": [], "allowCustomTags": true, "autoDetectSlashNotation": true },
+  "entityTypes": {
+    "definitions": [
+      {
+        "id": "character",
+        "label": "Character",
+        "presentation": { "portraitPropertyId": "portrait", "coverPropertyId": "cover" }
+      },
+      { "id": "location", "label": "Location" }
+    ],
+    "defaultType": "character",
+    "allowCustomTypes": false
+  },
+  "statuses": {
+    "definitions": [{ "id": "draft", "label": "Draft" }, { "id": "canon", "label": "Canon" }],
+    "defaultStatus": "draft",
+    "allowCustomStatuses": false
+  },
+  "customFields": {
+    "definitions": [
+      {
+        "id": "identity",
+        "label": "Identity",
+        "type": "group",
+        "appliesTo": ["character"],
+        "children": [
+          {
+            "id": "role",
+            "label": "Role",
+            "type": "select",
+            "options": [{ "value": "protagonist", "label": "Protagonist" }, { "value": "ally", "label": "Ally" }]
+          },
+          {
+            "id": "profile",
+            "label": "Profile",
+            "type": "group",
+            "children": [
+              { "id": "age", "label": "Age", "type": "number" },
+              { "id": "portrait", "label": "Portrait", "type": "image" }
+            ]
+          },
+          { "id": "cover", "label": "Cover", "type": "image" },
+          {
+            "id": "secret",
+            "label": "Secret",
+            "type": "text",
+            "visibleWhen": { "role": ["protagonist"] }
+          }
+        ]
+      }
+    ]
+  }
+}

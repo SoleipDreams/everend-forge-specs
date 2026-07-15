@@ -1,0 +1,11 @@
+{
+  "name": "Example Universe",
+  "icon": { "type": "preset", "value": "book" },
+  "localization": {
+    "primaryLocale": "es-PE",
+    "locales": ["es-PE", "en-US", "und-x-eldarin"],
+    "localeNames": {
+      "und-x-eldarin": "Eldarin"
+    }
+  }
+}

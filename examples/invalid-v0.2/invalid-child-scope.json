@@ -1,0 +1,9 @@
+{
+  "version": "3.0",
+  "tags": { "rootNodes": [], "allowCustomTags": true, "autoDetectSlashNotation": true },
+  "entityTypes": { "definitions": [{ "id": "character", "label": "Character" }, { "id": "location", "label": "Location" }], "defaultType": "character", "allowCustomTypes": false },
+  "statuses": { "definitions": [], "defaultStatus": "draft", "allowCustomStatuses": true },
+  "customFields": {
+    "definitions": [{ "id": "identity", "type": "group", "appliesTo": ["character"], "children": [{ "id": "region", "type": "text", "appliesTo": ["location"] }] }]
+  }
+}

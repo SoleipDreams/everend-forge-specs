@@ -6,7 +6,7 @@ Everend Compendium creates a static, public reading experience from an Everend v
 
 The optional `.everend/compendium.yaml` file follows `schemas/v0.1/compendium-config.schema.json`.
 
-`publication.statuses` defaults to `[canon]` when the file or property is absent. `narrative.mode` defaults to `scenes-and-relations` and is the only v0.1 mode.
+`publication.statuses` defaults to `[canon]` when the file or property is absent. The desktop reader exposes these statuses under Universe settings, so you can publish all entries marked `canon` and optionally include other statuses. `narrative.mode` defaults to `scenes-and-relations` and is the only v0.1 mode.
 
 The site can set a title, description, locale, cover image, logo, visual preset, accent color, and entity-type navigation order. Asset paths are always vault-relative and may not escape the vault.
 

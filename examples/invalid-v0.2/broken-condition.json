@@ -1,0 +1,7 @@
+{
+  "version": "3.0",
+  "tags": { "rootNodes": [], "allowCustomTags": true, "autoDetectSlashNotation": true },
+  "entityTypes": { "definitions": [{ "id": "character", "label": "Character" }], "defaultType": "character", "allowCustomTypes": false },
+  "statuses": { "definitions": [], "defaultStatus": "draft", "allowCustomStatuses": true },
+  "customFields": { "definitions": [{ "id": "secret", "type": "text", "visibleWhen": { "missing": ["yes"] } }] }
+}

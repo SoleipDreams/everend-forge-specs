@@ -1,0 +1,19 @@
+{
+  "version": "3.0",
+  "tags": { "rootNodes": [], "allowCustomTags": true, "autoDetectSlashNotation": true },
+  "entityTypes": {
+    "definitions": [
+      { "id": "character", "label": "Character", "presentation": { "portraitPropertyId": "title-art" } },
+      { "id": "location", "label": "Location", "presentation": { "coverPropertyId": "portrait" } }
+    ],
+    "defaultType": "character",
+    "allowCustomTypes": false
+  },
+  "statuses": { "definitions": [{ "id": "draft", "label": "Draft" }], "defaultStatus": "draft", "allowCustomStatuses": false },
+  "customFields": {
+    "definitions": [
+      { "id": "title-art", "type": "text", "appliesTo": ["character"] },
+      { "id": "portrait", "type": "image", "appliesTo": ["character"] }
+    ]
+  }
+}

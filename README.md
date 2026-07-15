@@ -25,18 +25,22 @@ This repository starts with human-readable Markdown contracts, JSON Schema, and 
 ## Start Here
 
 - [SPEC-V0.1.md](SPEC-V0.1.md): first human-readable contract.
+- [SPEC-V0.2.md](SPEC-V0.2.md): portable hierarchical property configuration and nested YAML semantics.
 - [docs/vault-format.md](docs/vault-format.md): Markdown vault expectations.
 - [docs/runtime-package.md](docs/runtime-package.md): JSON/YAML runtime package expectations.
 - [docs/validation-report.md](docs/validation-report.md): shared validation report concept.
 - [docs/change-sets.md](docs/change-sets.md): portable canon-edit review workflow.
 - [docs/compendium.md](docs/compendium.md): public Compendium configuration and PathBranching reader boundary.
 - [schemas/v0.1](schemas/v0.1): JSON Schemas for the v0.1 contracts.
+- [schemas/v0.2/properties-config.schema.json](schemas/v0.2/properties-config.schema.json): `.everend/properties.json` v3.0 schema.
 - [examples/demo-vault](examples/demo-vault): synthetic Markdown vault example.
 - [examples/runtime-package.json](examples/runtime-package.json): JSON runtime package example.
 - [examples/runtime-package.yaml](examples/runtime-package.yaml): YAML runtime package example.
 - [examples/canon-change-set.json](examples/canon-change-set.json): cross-app canon change proposal.
 - [examples/demo-vault/.everend/compendium.yaml](examples/demo-vault/.everend/compendium.yaml): Compendium configuration example.
 - [examples/invalid-v0.1](examples/invalid-v0.1): deliberately invalid fixtures for validator tests.
+- [examples/v0.2](examples/v0.2): valid hierarchical properties and nested frontmatter fixtures.
+- [examples/invalid-v0.2](examples/invalid-v0.2): invalid hierarchy, scope, and dependency fixtures.
 
 ## Design Goals
 
@@ -53,7 +57,7 @@ npm install
 npm test
 ~~~
 
-The validation script checks the v0.1 JSON Schemas against the canonical demo vault, runtime package examples, and deliberately invalid fixtures.
+The validation scripts keep v0.1 compatible and validate the v0.2 hierarchical property contract, nested frontmatter examples, and deliberately invalid fixtures.
 
 ## License
 

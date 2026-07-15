@@ -1,0 +1,12 @@
+{
+  "specVersion": "0.2",
+  "packageId": "example-story",
+  "entryNodeId": "event:start",
+  "primaryLocale": "es-PE",
+  "localization": { "event.start.name": "Inicio" },
+  "localizations": {
+    "es-PE": { "event.start.name": "Inicio" },
+    "en-US": { "event.start.name": "Start" }
+  },
+  "nodes": [{ "id": "event:start", "type": "event", "textKey": "event.start.name" }]
+}

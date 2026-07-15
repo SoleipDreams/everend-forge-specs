@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://everendforge.github.io/spec/schemas/v0.2/properties-config.schema.json",
+  "title": "Everend Properties Configuration 3.0",
+  "type": "object",
+  "required": ["version", "tags", "entityTypes", "statuses", "customFields"],
+  "properties": {
+    "version": { "const": "3.0" },
+    "baseProperties": {
+      "type": "object",
+      "required": ["definitions"],
+      "properties": {
+        "definitions": { "type": "array", "items": { "$ref": "#/$defs/propertyDefinition" } },
+        "visibleByDefault": { "$ref": "#/$defs/idList" },
+        "order": { "$ref": "#/$defs/idList" }
+      },
+      "additionalProperties": true
+    },
+    "tags": {
+      "type": "object",
+      "required": ["rootNodes", "allowCustomTags", "autoDetectSlashNotation"],
+      "properties": {
+        "rootNodes": { "type": "array" },
+        "allowCustomTags": { "type": "boolean" },
+        "autoDetectSlashNotation": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "entityTypes": {
+      "type": "object",
+      "required": ["definitions", "defaultType", "allowCustomTypes"],
+      "properties": {
+        "definitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label"],
+            "properties": {
+              "id": { "$ref": "#/$defs/id" },
+              "label": { "type": "string", "minLength": 1 },
+              "description": { "type": "string" },
+              "icon": { "type": "string" },
+              "color": { "type": "string" },
+              "propertyOrder": { "$ref": "#/$defs/idList" },
+              "presentation": {
+                "type": "object",
+                "properties": {
+                  "portraitPropertyId": { "$ref": "#/$defs/id" },
+                  "coverPropertyId": { "$ref": "#/$defs/id" }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "defaultType": { "$ref": "#/$defs/id" },
+        "allowCustomTypes": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "statuses": {
+      "type": "object",
+      "required": ["definitions", "defaultStatus", "allowCustomStatuses"],
+      "properties": {
+        "definitions": { "type": "array" },
+        "defaultStatus": { "$ref": "#/$defs/id" },
+        "allowCustomStatuses": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "customFields": {
+      "type": "object",
+      "required": ["definitions"],
+      "properties": {
+        "definitions": { "type": "array", "items": { "$ref": "#/$defs/propertyDefinition" } }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "id": { "type": "string", "minLength": 1, "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "idList": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+    "option": {
+      "type": "object",
+      "required": ["value", "label"],
+      "properties": {
+        "value": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "color": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "propertyDefinition": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "label": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "type": {
+          "enum": ["text", "number", "boolean", "date", "select", "multiselect", "entity-ref", "entity-ref-list", "url", "email", "phone", "file", "image", "group"]
+        },
+        "required": { "type": "boolean" },
+        "defaultValue": {},
+        "options": { "type": "array", "items": { "$ref": "#/$defs/option" } },
+        "targetTypes": { "$ref": "#/$defs/idList" },
+        "appliesTo": { "$ref": "#/$defs/idList" },
+        "visibleWhen": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": { "$ref": "#/$defs/id" },
+          "additionalProperties": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string" }
+          }
+        },
+        "children": { "type": "array", "items": { "$ref": "#/$defs/propertyDefinition" } },
+        "min": { "type": "number" },
+        "max": { "type": "number" },
+        "pattern": { "type": "string" },
+        "immutable": { "type": "boolean" },
+        "readOnly": { "type": "boolean" },
+        "hidden": { "type": "boolean" },
+        "order": { "type": "number" }
+      },
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "group" } }, "required": ["type"] },
+          "then": { "required": ["children"], "properties": { "options": false, "defaultValue": false } },
+          "else": { "properties": { "children": false } }
+        },
+        {
+          "if": { "properties": { "type": { "enum": ["select", "multiselect"] } }, "required": ["type"] },
+          "then": { "required": ["options"] }
+        },
+        {
+          "if": { "properties": { "type": { "enum": ["entity-ref", "entity-ref-list"] } }, "required": ["type"] },
+          "then": { "required": ["targetTypes"] }
+        }
+      ]
+    }
+  }
+}

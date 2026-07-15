@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://everendforge.github.io/spec/schemas/v0.2/universe-profile.schema.json",
+  "title": "Everend Universe Profile v0.2",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "icon": {
+      "type": "object",
+      "required": ["type", "value"],
+      "properties": {
+        "type": { "enum": ["preset", "image"] },
+        "value": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "taxonomyVersion": { "type": "string" },
+    "localization": {
+      "type": "object",
+      "required": ["primaryLocale", "locales"],
+      "properties": {
+        "primaryLocale": { "type": "string", "minLength": 2, "maxLength": 35 },
+        "locales": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 2, "maxLength": 35 },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "localeNames": {
+          "type": "object",
+          "additionalProperties": { "type": "string", "minLength": 1, "maxLength": 120 }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}

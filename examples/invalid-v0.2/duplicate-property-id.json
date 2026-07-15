@@ -1,0 +1,12 @@
+{
+  "version": "3.0",
+  "tags": { "rootNodes": [], "allowCustomTags": true, "autoDetectSlashNotation": true },
+  "entityTypes": { "definitions": [{ "id": "character", "label": "Character" }], "defaultType": "character", "allowCustomTypes": false },
+  "statuses": { "definitions": [], "defaultStatus": "draft", "allowCustomStatuses": true },
+  "customFields": {
+    "definitions": [
+      { "id": "identity", "type": "group", "children": [{ "id": "role", "type": "text" }] },
+      { "id": "role", "type": "text" }
+    ]
+  }
+}
