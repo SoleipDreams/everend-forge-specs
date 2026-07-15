@@ -4,6 +4,7 @@
 
 - Added optional per-type `presentation` roles for portrait and cover image properties in
   `.everend/properties.json` 3.0.
+- Added portable per-note variants with inherited frontmatter overrides and Markdown variant blocks.
 
 ## Unreleased
 

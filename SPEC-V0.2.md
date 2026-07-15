@@ -76,6 +76,45 @@ they do not create fields, rewrite notes, or delete values when disabled.
 }
 ~~~
 
+## Note variants
+
+An entity may define named variants in its own frontmatter without duplicating the Markdown
+file. `variants.base` is always available; it may have a custom `label`, but has no overrides
+and cannot be removed. Other variant IDs are stable identifiers and contain a non-empty `label`
+and optional `overrides` object. Override values use the same root keys and nested YAML paths as
+the entity's ordinary frontmatter. `id`, `type`, and `variants` are structural and must not be
+overridden.
+
+~~~yaml
+---
+id: mara-voss
+type: character
+name: Mara Voss
+identity:
+  profile:
+    age: 34
+variants:
+  base:
+    label: Canon
+  mara-adulta:
+    label: Mara adulta
+    overrides:
+      name: Mara Voss, cartógrafa mayor
+      identity:
+        profile:
+          age: 62
+---
+~~~
+
+Variant-only prose remains in the same Markdown body. A block begins with
+`<!-- everend:variant id="variant-id" -->` and ends with `<!-- /everend:variant -->`.
+Unmarked Markdown is shared. Tools that do not support variants preserve these standard HTML
+comments and display the enclosed prose as ordinary Markdown.
+
+Variant selection is a local application preference; it is never written to the shared vault.
+Tools must preserve unknown variant overrides and treat malformed or unknown variant blocks as
+visible content rather than discarding them.
+
 ## Compatibility
 
 Tools must preserve unknown frontmatter objects. A v0.1 reader may treat nested objects as unknown project-specific properties while continuing to read core fields. `.everend/taxonomy.yaml` remains the v0.1 taxonomy manifest and is not removed by v0.2.

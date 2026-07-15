@@ -21,6 +21,73 @@ function readJson(relativePath) {
   return JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
 }
 
+function readMarkdownFrontmatter(relativePath) {
+  const markdown = fs.readFileSync(path.join(root, relativePath), "utf8");
+  const closingFence = markdown.indexOf("\n---", 4);
+  if (!markdown.startsWith("---\n") || closingFence === -1) {
+    throw new Error(`${relativePath} must have YAML frontmatter`);
+  }
+  return { markdown, frontmatter: YAML.parse(markdown.slice(4, closingFence)) ?? {} };
+}
+
+function variantErrors(markdown, frontmatter) {
+  const errors = [];
+  const variants = frontmatter.variants;
+  if (!variants || typeof variants !== "object" || Array.isArray(variants)) return errors;
+  const labels = new Set();
+  if (!variants.base || typeof variants.base.label !== "string" || !variants.base.label.trim()) {
+    errors.push("variants.base must have a non-empty label");
+  }
+  for (const [id, variant] of Object.entries(variants)) {
+    if (!/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(id)) errors.push(`invalid variant id ${id}`);
+    if (
+      !variant ||
+      typeof variant !== "object" ||
+      Array.isArray(variant) ||
+      typeof variant.label !== "string" ||
+      !variant.label.trim()
+    ) {
+      errors.push(`${id} must have a non-empty label`);
+      continue;
+    }
+    const label = variant.label.toLocaleLowerCase();
+    if (labels.has(label)) errors.push(`duplicate variant label ${variant.label}`);
+    labels.add(label);
+    if (id === "base" && variant.overrides) errors.push("base must not define overrides");
+    if (variant.overrides && typeof variant.overrides === "object") {
+      for (const key of ["id", "type", "variants"]) {
+        if (key in variant.overrides) errors.push(`${id} must not override ${key}`);
+      }
+    }
+  }
+  const open = /<!--\s*everend:variant\s+id=(?:"([A-Za-z0-9][A-Za-z0-9._-]*)"|'([A-Za-z0-9][A-Za-z0-9._-]*)')\s*-->/g;
+  const close = /<!--\s*\/everend:variant\s*-->/g;
+  let match;
+  while ((match = open.exec(markdown))) {
+    const id = match[1] ?? match[2];
+    close.lastIndex = open.lastIndex;
+    const end = close.exec(markdown);
+    if (!end) {
+      errors.push(`${id} block is not closed`);
+      break;
+    }
+    if (!variants[id]) errors.push(`${id} block references an unknown variant`);
+    open.lastIndex = end.index + end[0].length;
+  }
+  return errors;
+}
+
+function expectValidVariant(relativePath) {
+  const { markdown, frontmatter } = readMarkdownFrontmatter(relativePath);
+  const errors = variantErrors(markdown, frontmatter);
+  if (errors.length) throw new Error(`${relativePath} should be valid:\n${errors.join("\n")}`);
+}
+
+function expectInvalidVariant(relativePath) {
+  const { markdown, frontmatter } = readMarkdownFrontmatter(relativePath);
+  if (!variantErrors(markdown, frontmatter).length) throw new Error(`${relativePath} should be invalid`);
+}
+
 function flatten(definitions, parentScope, results = []) {
   for (const definition of definitions ?? []) {
     const effectiveScope = definition.appliesTo ?? parentScope;
@@ -106,6 +173,11 @@ const nestedFrontmatter = YAML.parse(nestedMarkdown.slice(4, closingFence));
 if (nestedFrontmatter.identity?.profile?.age !== 34 || "role" in nestedFrontmatter) {
   throw new Error("nested-character.md must keep group children nested");
 }
+
+expectValidVariant("examples/v0.2/variant-character.md");
+["variant-unknown.md", "variant-unclosed.md", "variant-structural.md"].forEach((name) =>
+  expectInvalidVariant(`examples/invalid-v0.2/${name}`),
+);
 
 for (const name of [
   "duplicate-property-id.json",
