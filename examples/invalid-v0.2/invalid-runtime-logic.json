@@ -1,0 +1,22 @@
+{
+  "specVersion": "0.2",
+  "packageId": "broken-logic",
+  "entryNodeId": "event:start",
+  "primaryLocale": "es-PE",
+  "localizations": { "es-PE": {} },
+  "nodes": [
+    {
+      "id": "event:start",
+      "type": "event",
+      "transitions": [
+        {
+          "id": "transition:broken",
+          "from": "event:start",
+          "to": "event:end",
+          "role": "flow",
+          "logic": { "then": [] }
+        }
+      ]
+    }
+  ]
+}

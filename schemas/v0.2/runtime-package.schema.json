@@ -27,10 +27,199 @@
           "type": { "type": "string", "minLength": 1 },
           "textKey": { "type": "string" },
           "characterRef": { "type": "string" },
-          "speakerRef": { "type": "string" }
+          "speakerRef": { "type": "string" },
+          "logic": { "$ref": "#/$defs/logicMoment" },
+          "transitions": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/transition" }
+          }
         },
         "additionalProperties": true
       }
+    }
+  },
+  "$defs": {
+    "logicSubject": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "entityId"],
+          "properties": {
+            "kind": { "const": "entity" },
+            "entityId": { "type": "string", "minLength": 1 },
+            "source": { "enum": ["canon", "local"] }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "objectId"],
+          "properties": {
+            "kind": { "const": "dataObject" },
+            "objectId": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "variableId"],
+          "properties": {
+            "kind": { "const": "variable" },
+            "variableId": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "targetType", "targetId"],
+          "properties": {
+            "kind": { "const": "progress" },
+            "targetType": { "enum": ["sequence", "branch", "event", "decision", "outcome"] },
+            "targetId": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "functionId"],
+          "properties": {
+            "kind": { "const": "external" },
+            "functionId": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "predicate": {
+      "type": "object",
+      "required": ["type", "subject", "operator"],
+      "properties": {
+        "type": { "enum": ["state", "property", "value", "visited", "external"] },
+        "subject": { "$ref": "#/$defs/logicSubject" },
+        "stateId": { "type": "string", "minLength": 1 },
+        "propertyId": { "type": "string", "minLength": 1 },
+        "operator": {
+          "enum": ["==", "!=", ">", ">=", "<", "<=", "contains", "notContains", "exists", "missing", "has"]
+        },
+        "value": true,
+        "arguments": { "type": "array" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "state" } } },
+          "then": { "required": ["stateId"] }
+        },
+        {
+          "if": { "properties": { "type": { "const": "property" } } },
+          "then": { "required": ["propertyId"] }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "expression": {
+      "oneOf": [
+        { "$ref": "#/$defs/predicate" },
+        {
+          "type": "object",
+          "required": ["all"],
+          "properties": {
+            "all": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/expression" } },
+            "label": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["any"],
+          "properties": {
+            "any": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/expression" } },
+            "label": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["not"],
+          "properties": {
+            "not": { "$ref": "#/$defs/expression" },
+            "label": { "type": "string" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "effect": {
+      "type": "object",
+      "required": ["type", "subject", "operation"],
+      "properties": {
+        "type": { "enum": ["state", "property", "value", "external"] },
+        "subject": { "$ref": "#/$defs/logicSubject" },
+        "stateId": { "type": "string", "minLength": 1 },
+        "propertyId": { "type": "string", "minLength": 1 },
+        "operation": {
+          "enum": ["set", "toggle", "add", "subtract", "append", "remove", "clear", "grant", "ungrant", "unlock", "lock", "discover", "hide", "enter", "leave", "call"]
+        },
+        "value": true,
+        "arguments": { "type": "array" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "state" } } },
+          "then": { "required": ["stateId"] }
+        },
+        {
+          "if": { "properties": { "type": { "const": "property" } } },
+          "then": { "required": ["propertyId"] }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "rule": {
+      "type": "object",
+      "required": ["id", "when", "then"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "when": { "$ref": "#/$defs/expression" },
+        "then": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/effect" } }
+      },
+      "additionalProperties": false
+    },
+    "logicMoment": {
+      "type": "object",
+      "properties": {
+        "when": { "$ref": "#/$defs/expression" },
+        "then": { "type": "array", "items": { "$ref": "#/$defs/effect" } },
+        "rules": { "type": "array", "items": { "$ref": "#/$defs/rule" } }
+      },
+      "additionalProperties": false
+    },
+    "transition": {
+      "type": "object",
+      "required": ["id", "from", "to", "role"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "from": { "type": "string", "minLength": 1 },
+        "to": { "type": "string", "minLength": 1 },
+        "role": { "enum": ["flow", "route"] },
+        "order": { "type": "integer", "minimum": 0 },
+        "fallback": { "type": "boolean" },
+        "label": { "type": "string" },
+        "logic": { "$ref": "#/$defs/logicMoment" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "role": { "const": "flow" } } },
+          "then": {
+            "not": {
+              "anyOf": [
+                { "required": ["fallback"] },
+                { "required": ["logic"] }
+              ]
+            }
+          }
+        }
+      ],
+      "additionalProperties": true
     }
   },
   "additionalProperties": true

@@ -166,6 +166,9 @@ if (!validateUniverseProfile(readJson("examples/v0.2/universe.json"))) {
 if (!validateRuntimePackage(readJson("examples/v0.2/runtime-package.json"))) {
   throw new Error(`examples/v0.2/runtime-package.json should match the schema:\n${ajv.errorsText(validateRuntimePackage.errors)}`);
 }
+if (validateRuntimePackage(readJson("examples/invalid-v0.2/invalid-runtime-logic.json"))) {
+  throw new Error("examples/invalid-v0.2/invalid-runtime-logic.json should reject logic on a flow transition");
+}
 
 const nestedMarkdown = fs.readFileSync(path.join(root, "examples/v0.2/nested-character.md"), "utf8");
 const closingFence = nestedMarkdown.indexOf("\n---", 4);

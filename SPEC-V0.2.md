@@ -119,4 +119,13 @@ visible content rather than discarding them.
 
 Tools must preserve unknown frontmatter objects. A v0.1 reader may treat nested objects as unknown project-specific properties while continuing to read core fields. `.everend/taxonomy.yaml` remains the v0.1 taxonomy manifest and is not removed by v0.2.
 
+## Runtime logic
+
+Runtime package v0.2 defines portable logic subjects, predicates, recursive expressions, effects,
+rules, and logic moments. Canon and local entities are referenced by stable ID; effects update a
+runtime state overlay and never imply a write to the source vault. A transition with role `flow`
+is structural and cannot carry logic. A `route` may carry a condition, effects, explicit order,
+and a final fallback. Engine adapters must reject unsupported predicates or effects explicitly
+instead of dropping them during import.
+
 Version 2.0 WorldNotion property configurations are legacy input. Upgrading to 3.0 requires explicit user confirmation before rewriting note frontmatter.

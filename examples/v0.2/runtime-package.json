@@ -8,5 +8,32 @@
     "es-PE": { "event.start.name": "Inicio" },
     "en-US": { "event.start.name": "Start" }
   },
-  "nodes": [{ "id": "event:start", "type": "event", "textKey": "event.start.name" }]
+  "nodes": [
+    {
+      "id": "event:start",
+      "type": "event",
+      "textKey": "event.start.name",
+      "logic": {
+        "when": {
+          "type": "state",
+          "subject": { "kind": "entity", "entityId": "item:relic", "source": "canon" },
+          "stateId": "owned",
+          "operator": "has"
+        },
+        "then": [
+          {
+            "type": "property",
+            "subject": { "kind": "entity", "entityId": "item:relic", "source": "canon" },
+            "propertyId": "durability",
+            "operation": "subtract",
+            "value": 1
+          }
+        ]
+      },
+      "transitions": [
+        { "id": "transition:end", "from": "event:start", "to": "event:end", "role": "flow" }
+      ]
+    },
+    { "id": "event:end", "type": "event" }
+  ]
 }
