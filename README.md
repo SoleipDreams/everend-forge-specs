@@ -7,13 +7,13 @@
 
 <h1 align="center">Everend Spec</h1>
 <p align="center">
-  The portable format contracts shared by every <a href="https://github.com/Everendforge/everend-forge">Everend Forge</a> tool.<br />
+  The portable format contracts shared by every <a href="https://github.com/SoleipDreams/everend-forge">Everend Forge</a> tool.<br />
   Vaults, branching graphs, runtime packages, and validation reports.
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg" alt="License">
-  <a href="https://github.com/Everendforge/everend-forge"><img src="https://img.shields.io/badge/Everend%20Forge-open%20core%20suite-0a0e1a.svg" alt="Part of Everend Forge"></a>
+  <a href="https://github.com/SoleipDreams/everend-forge"><img src="https://img.shields.io/badge/Everend%20Forge-open%20core%20suite-0a0e1a.svg" alt="Part of Everend Forge"></a>
 </p>
 
 ---
