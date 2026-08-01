@@ -62,3 +62,7 @@ The validation scripts keep v0.1 compatible and validate the v0.2 hierarchical p
 ## License
 
 Spec prose and examples are licensed under CC BY 4.0. Any code added later should use MIT OR Apache-2.0 unless stated otherwise.
+
+## Support
+
+If Everend Forge is useful to you, you can support its development on [Ko-fi](https://ko-fi.com/heinzdbv).
