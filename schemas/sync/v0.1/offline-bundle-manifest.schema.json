@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://everendforge.github.io/spec/schemas/sync/v0.1/offline-bundle-manifest.schema.json",
+  "title": "Everend Forge Offline Bundle Manifest v0.1",
+  "type": "object",
+  "required": ["bundleVersion", "runtimePackageFile", "projectionFile", "adapterManifestFile", "validationReportFile", "inkRoot"],
+  "properties": {
+    "bundleVersion": { "const": "0.1" },
+    "runtimePackageFile": { "const": "runtime-package.json" },
+    "projectionFile": { "const": "sinpo-projection.json" },
+    "adapterManifestFile": { "const": "adapter-manifest.json" },
+    "validationReportFile": { "const": "validation-report.json" },
+    "inkRoot": { "const": "Ink" }
+  },
+  "additionalProperties": true
+}

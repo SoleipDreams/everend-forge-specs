@@ -1,0 +1,8 @@
+{
+  "bundleVersion": "0.1",
+  "runtimePackageFile": "runtime-package.json",
+  "projectionFile": "sinpo-projection.json",
+  "adapterManifestFile": "adapter-manifest.json",
+  "validationReportFile": "validation-report.json",
+  "inkRoot": "Ink"
+}

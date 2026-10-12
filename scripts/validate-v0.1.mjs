@@ -46,7 +46,7 @@ function markdownFiles(dir) {
 }
 
 function parseFrontmatter(filePath) {
-  const text = fs.readFileSync(filePath, "utf8");
+  const text = fs.readFileSync(filePath, "utf8").replace(/\r\n/g, "\n");
   if (!text.startsWith("---\n")) {
     throw new Error(
       `${path.relative(root, filePath)} is missing YAML frontmatter`,

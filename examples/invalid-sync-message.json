@@ -1,0 +1,12 @@
+{
+  "syncProtocolVersion": "0.1",
+  "messageType": "changeSet",
+  "messageId": "message-invalid",
+  "sessionId": "session-sinpo",
+  "projectId": "sinpo",
+  "storyId": "ridina",
+  "baseRevision": 5,
+  "revision": 5,
+  "origin": "unknown-tool",
+  "payload": { "operations": [] }
+}

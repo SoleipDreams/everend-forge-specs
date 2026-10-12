@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://everendforge.github.io/spec/schemas/sync/v0.1/sync-message.schema.json",
+  "title": "Everend Forge Live Sync Message v0.1",
+  "type": "object",
+  "required": [
+    "syncProtocolVersion",
+    "messageType",
+    "messageId",
+    "sessionId",
+    "projectId",
+    "storyId",
+    "baseRevision",
+    "revision",
+    "origin",
+    "payload"
+  ],
+  "properties": {
+    "syncProtocolVersion": { "const": "0.1" },
+    "messageType": {
+      "enum": [
+        "hello",
+        "welcome",
+        "snapshot",
+        "changeSet",
+        "inventory",
+        "validationReport",
+        "applyResult",
+        "heartbeat",
+        "error"
+      ]
+    },
+    "messageId": { "type": "string", "minLength": 1 },
+    "sessionId": { "type": "string", "minLength": 1 },
+    "projectId": { "type": "string", "minLength": 1 },
+    "storyId": { "type": "string", "minLength": 1 },
+    "baseRevision": { "type": "integer", "minimum": 0 },
+    "revision": { "type": "integer", "minimum": 0 },
+    "origin": { "enum": ["pathbranching", "unity", "adapter"] },
+    "payload": { "type": "object", "additionalProperties": true }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "messageType": { "const": "hello" } } },
+      "then": {
+        "properties": {
+          "payload": {
+            "type": "object",
+            "required": ["role", "clientId"],
+            "properties": {
+              "role": { "enum": ["author", "unity"] },
+              "clientId": { "type": "string", "minLength": 1 },
+              "pairingCode": { "type": "string", "minLength": 1 },
+              "token": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "messageType": { "const": "changeSet" } } },
+      "then": {
+        "properties": {
+          "payload": {
+            "type": "object",
+            "required": ["operations"],
+            "properties": {
+              "operations": {
+                "type": "array",
+                "items": { "$ref": "#/$defs/operation" }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "messageType": { "const": "snapshot" } } },
+      "then": {
+        "properties": {
+          "payload": {
+            "type": "object",
+            "required": ["runtimePackage"],
+            "properties": { "runtimePackage": { "type": "object" } }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "operation": {
+      "type": "object",
+      "required": ["operation", "entityType", "entityId", "ownership"],
+      "properties": {
+        "operation": { "enum": ["upsert", "set", "remove", "propose"] },
+        "entityType": { "type": "string", "minLength": 1 },
+        "entityId": { "type": "string", "minLength": 1 },
+        "propertyPath": { "type": "string", "minLength": 1 },
+        "ownership": { "enum": ["pathbranching", "unity", "adapter"] },
+        "value": {},
+        "reason": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

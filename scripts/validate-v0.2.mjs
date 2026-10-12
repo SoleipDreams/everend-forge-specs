@@ -22,7 +22,7 @@ function readJson(relativePath) {
 }
 
 function readMarkdownFrontmatter(relativePath) {
-  const markdown = fs.readFileSync(path.join(root, relativePath), "utf8");
+  const markdown = fs.readFileSync(path.join(root, relativePath), "utf8").replace(/\r\n/g, "\n");
   const closingFence = markdown.indexOf("\n---", 4);
   if (!markdown.startsWith("---\n") || closingFence === -1) {
     throw new Error(`${relativePath} must have YAML frontmatter`);

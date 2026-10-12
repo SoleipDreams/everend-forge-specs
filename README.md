@@ -33,6 +33,7 @@ This repository starts with human-readable Markdown contracts, JSON Schema, and 
 - [docs/compendium.md](docs/compendium.md): public Compendium configuration and PathBranching reader boundary.
 - [schemas/v0.1](schemas/v0.1): JSON Schemas for the v0.1 contracts.
 - [schemas/v0.2/properties-config.schema.json](schemas/v0.2/properties-config.schema.json): `.everend/properties.json` v3.0 schema.
+- [schemas/sync/v0.1](schemas/sync/v0.1): live bridge envelopes, operations, and offline bundle manifest.
 - [examples/demo-vault](examples/demo-vault): synthetic Markdown vault example.
 - [examples/runtime-package.json](examples/runtime-package.json): JSON runtime package example.
 - [examples/runtime-package.yaml](examples/runtime-package.yaml): YAML runtime package example.
@@ -49,6 +50,7 @@ This repository starts with human-readable Markdown contracts, JSON Schema, and 
 - Use stable IDs for cross-tool references.
 - Support project-specific taxonomy while keeping files portable.
 - Let apps evolve independently while targeting explicit spec versions.
+- Keep the live sync protocol versioned independently from `runtime-package`.
 
 ## Validation
 

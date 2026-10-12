@@ -1,0 +1,23 @@
+{
+  "syncProtocolVersion": "0.1",
+  "messageType": "changeSet",
+  "messageId": "message-001",
+  "sessionId": "session-sinpo",
+  "projectId": "sinpo",
+  "storyId": "ridina",
+  "baseRevision": 4,
+  "revision": 5,
+  "origin": "pathbranching",
+  "payload": {
+    "operations": [
+      {
+        "operation": "set",
+        "entityType": "event",
+        "entityId": "ridina-event-02",
+        "propertyPath": "text.content",
+        "ownership": "pathbranching",
+        "value": "La puerta se abre."
+      }
+    ]
+  }
+}
