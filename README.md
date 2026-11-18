@@ -12,13 +12,23 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg" alt="License">
-  <a href="https://github.com/SoleipDreams/everend-forge"><img src="https://img.shields.io/badge/Everend%20Forge-open%20core%20suite-0a0e1a.svg" alt="Part of Everend Forge"></a>
+  <img src="https://img.shields.io/badge/license-CC%20BY%204.0-blue.svg" alt="License: CC BY 4.0">
+  <a href="README.es.md">Español</a> ·
+  <a href="https://github.com/SoleipDreams/everend-forge"><img src="https://img.shields.io/badge/part%20of-Everend%20Forge-0a0e1a.svg" alt="Part of Everend Forge"></a>
 </p>
 
 ---
 
 Everend Spec defines the portable contracts shared by Everend Forge tools. It is the technical source of compatibility for vaults, branching graphs, runtime packages, and validation reports.
+
+~~~mermaid
+flowchart LR
+  A[Markdown vault] --> B[WorldNotion]
+  A --> C[PathBranching graph]
+  C --> D[Runtime package]
+  D --> E[Engine plugins]
+  A --> F[Compendium publication]
+~~~
 
 This repository starts with human-readable Markdown contracts, JSON Schema, and examples. A CLI validator can be added after the first workflows are validated.
 
@@ -63,8 +73,9 @@ The validation scripts keep v0.1 compatible and validate the v0.2 hierarchical p
 
 ## License
 
-Spec prose and examples are licensed under CC BY 4.0. Any code added later should use MIT OR Apache-2.0 unless stated otherwise.
+Specification prose, schemas, and examples are licensed under CC BY 4.0. Source code, if present, is licensed separately where marked. See [license scope](LICENSE), [CC BY 4.0](LICENSE-CC-BY-4.0), and the [brand policy](TRADEMARKS.md).
 
 ## Support
 
 If Everend Forge is useful to you, you can support its development on [Ko-fi](https://ko-fi.com/heinzdbv).
+
